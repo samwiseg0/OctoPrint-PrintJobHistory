@@ -251,7 +251,7 @@ class PrintJobHistoryPlugin(
 
 		if self._filamentManagerPluginImplementation != None and self._filamentManagerPluginImplementationState == "enabled":
 
-			filemanentModel.usedLength = self._filamentManagerPluginImplementation.filamentOdometer.totalExtrusion[0]
+			filemanentModel.usedLength = self._filamentManagerPluginImplementation.myfilamentOdometer.totalExtrusion[0]
 			selectedSpools = self._filamentManagerPluginImplementation.filamentManager.get_all_selections(self._filamentManagerPluginImplementation.client_id)
 			if  selectedSpools != None and len(selectedSpools) > 0:
 				spoolData = None
@@ -292,11 +292,11 @@ class PrintJobHistoryPlugin(
 
 					filemanentModel.usedWeight = usedWeight
 					filemanentModel.usedCost = spoolCost / spoolWeight * usedWeight
-		else if self._spoolManagerPluginImplementation != None and self._spoolManagerPluginImplementationState == "enabled":
+		elif self._spoolManagerPluginImplementation != None and self._spoolManagerPluginImplementationState == "enabled":
 
 			filemanentModel.usedLength = self._spoolManagerPluginImplementation.filamentOdometer.totalExtrusion[0]
 			selectedSpool = self._spoolManagerPluginImplementation.filamentManager.loadSelectedSpool()
-            toolId = 0 #TODO multi extruder support in SpoolManager
+			toolId = 0 #TODO multi extruder support in SpoolManager
 			if  selectedSpool != None:
 				spoolData = selectedSpool
 				if (spoolData == None):
@@ -821,6 +821,3 @@ def __plugin_load__():
 		"octoprint.server.http.bodysize": __plugin_implementation__.bodysize_hook,
 		"octoprint.plugin.softwareupdate.check_config": __plugin_implementation__.get_update_information
 	}
-
-
-
